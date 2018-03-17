@@ -1,13 +1,14 @@
 # mirrord's Dockerfile
 
 FROM debian
-MAINTAINER ideal <idealities@gmail.com>
+MAINTAINER felinae <fellinae@qq.com>
 
 RUN apt-get update
 RUN apt-get install -y rsync python-pip
 
 RUN pip install mirror
 
-RUN mkdir /var/log/mirrord /var/log/rsync
+RUN mkdir /var/log/mirrord /var/log/rsync /mirror
+VOLUME ["/mirror", "/var/log"]
 
-CMD ["mirrord"]
+ENTRYPOINT ["mirrord", "-c /etc/mirror/mirror.ini"]
